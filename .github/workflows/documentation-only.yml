@@ -1,0 +1,71 @@
+# MIT License
+
+# Copyright (c) 2021 Neil Enns
+
+# Permission is hereby granted, free of charge, to any person obtaining a copy
+# of this software and associated documentation files (the "Software"), to deal
+# in the Software without restriction, including without limitation the rights
+# to use, copy, modify, merge, publish, distribute, sublicense, and/or sell
+# copies of the Software, and to permit persons to whom the Software is
+# furnished to do so, subject to the following conditions:
+
+# The above copyright notice and this permission notice shall be included in all
+# copies or substantial portions of the Software.
+
+# THE SOFTWARE IS PROVIDED "AS IS", WITHOUT WARRANTY OF ANY KIND, EXPRESS OR
+# IMPLIED, INCLUDING BUT NOT LIMITED TO THE WARRANTIES OF MERCHANTABILITY,
+# FITNESS FOR A PARTICULAR PURPOSE AND NONINFRINGEMENT. IN NO EVENT SHALL THE
+# AUTHORS OR COPYRIGHT HOLDERS BE LIABLE FOR ANY CLAIM, DAMAGES OR OTHER
+# LIABILITY, WHETHER IN AN ACTION OF CONTRACT, TORT OR OTHERWISE, ARISING FROM,
+# OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE
+# SOFTWARE.
+
+# This workflow generates documentation (PDFs, interactive BOMs, board images). The
+# The version number and date of the design is automatically updated in the schematic
+# file and on the PCB. The version number is set via an environment variable
+# and by default is `pre-release` since this runs outside of the release process
+# so there's no formal release number to use.
+
+# To use this workflow in your own repo you need to edit the environment variables in the env: section
+# below.
+name: "KiBot - Generate documentation only"
+
+on:
+  workflow_dispatch:
+    inputs:
+      version:
+        description: "Design version"
+        required: true
+        default: "pre-release"
+
+jobs:
+  Documentation:
+    env:
+      # Set this to your local timezone. See https://www.wikiwand.com/en/List_of_tz_database_time_zones for valid strings.
+      Timezone: America/Los_Angeles
+      # Set this to the output folder for all of the generated files. Unless you have a very
+      # good reason to change this you should leave it as KiBotOutput.
+      OutputFolder: KiBotOutput
+    runs-on: ubuntu-latest
+
+    # These are all the steps that generate the files.
+    steps:
+      # Check out the files
+      - uses: actions/checkout@v2
+
+      # Actually run KiBot to generate all the files. The KiBot script used is
+      # in the .kibot/release.kibot.yaml folder.
+      - name: Generate documentation
+        uses: INTI-CMNB/KiBot@v2_k6
+        with:
+          config: .kibot/documentation-only.kibot.yaml
+          dir: ${{ env.OutputFolder }}
+          schema: ${{ github.event.repository.name }}.kicad_sch
+          board: ${{ github.event.repository.name }}.kicad_pcb
+
+      # Archive all the artifacts from output and attach to the action's results.
+      - name: Archive production artifacts
+        uses: actions/upload-artifact@v2
+        with:
+          name: schematic
+          path: ${{ env.OutputFolder }}/**

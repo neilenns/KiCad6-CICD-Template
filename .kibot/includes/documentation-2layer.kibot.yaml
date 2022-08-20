@@ -1,0 +1,75 @@
+# MIT License
+
+# Copyright (c) 2021 Neil Enns
+
+# Permission is hereby granted, free of charge, to any person obtaining a copy
+# of this software and associated documentation files (the "Software"), to deal
+# in the Software without restriction, including without limitation the rights
+# to use, copy, modify, merge, publish, distribute, sublicense, and/or sell
+# copies of the Software, and to permit persons to whom the Software is
+# furnished to do so, subject to the following conditions:
+
+# The above copyright notice and this permission notice shall be included in all
+# copies or substantial portions of the Software.
+
+# THE SOFTWARE IS PROVIDED "AS IS", WITHOUT WARRANTY OF ANY KIND, EXPRESS OR
+# IMPLIED, INCLUDING BUT NOT LIMITED TO THE WARRANTIES OF MERCHANTABILITY,
+# FITNESS FOR A PARTICULAR PURPOSE AND NONINFRINGEMENT. IN NO EVENT SHALL THE
+# AUTHORS OR COPYRIGHT HOLDERS BE LIABLE FOR ANY CLAIM, DAMAGES OR OTHER
+# LIABILITY, WHETHER IN AN ACTION OF CONTRACT, TORT OR OTHERWISE, ARISING FROM,
+# OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE
+# SOFTWARE.
+
+# This KiBot script generates common documentation files for a two layer board design,
+# including PDF schematics, PDF front and back board images, an interactive HTML BOM,
+# JPEG renders of the PCB, and a STEP 3D model. Note that the STEP 3D model generation
+# will throw a ton of warnings and errors but does actually work.
+outputs:
+  - name: "print_sch"
+    comment: "PDF - print schematic"
+    type: pdf_sch_print
+    dir: "PDFs"
+
+  - name: "print_front"
+    comment: "PDF - front copper and user drawings"
+    type: pdf_pcb_print
+    dir: "PDFs"
+    layers:
+      - layer: F.Cu
+      - layer: Dwgs.User
+
+  - name: "print_bottom"
+    comment: "PDF - back copper and user drawings"
+    type: pdf_pcb_print
+    dir: "PDFs"
+    layers:
+      - layer: B.Cu
+      - layer: Dwgs.User
+
+  # - name: "interactive_bom"
+  #   comment: "Interactive Bill of Materials"
+  #   type: ibom
+  #   dir: "BOM"
+  #   options:
+  #     blacklist: "DNF*"
+
+  - name: pcb_top_g
+    comment: "Renders - top (green)"
+    type: pcbdraw
+    dir: "Renders"
+    options:
+      output: "%f-green-%i.%x"
+      format: jpg
+      show_components: none
+      dpi: 600
+
+  - name: pcb_bot_g
+    comment: "Renders - bottom (green)"
+    type: pcbdraw
+    dir: "Renders"
+    options:
+      output: "%f-green-%i.%x"
+      format: jpg
+      bottom: True
+      show_components: none
+      dpi: 600

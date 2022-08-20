@@ -1,0 +1,35 @@
+# MIT License
+
+# Copyright (c) 2021 Neil Enns
+
+# Permission is hereby granted, free of charge, to any person obtaining a copy
+# of this software and associated documentation files (the "Software"), to deal
+# in the Software without restriction, including without limitation the rights
+# to use, copy, modify, merge, publish, distribute, sublicense, and/or sell
+# copies of the Software, and to permit persons to whom the Software is
+# furnished to do so, subject to the following conditions:
+
+# The above copyright notice and this permission notice shall be included in all
+# copies or substantial portions of the Software.
+
+# THE SOFTWARE IS PROVIDED "AS IS", WITHOUT WARRANTY OF ANY KIND, EXPRESS OR
+# IMPLIED, INCLUDING BUT NOT LIMITED TO THE WARRANTIES OF MERCHANTABILITY,
+# FITNESS FOR A PARTICULAR PURPOSE AND NONINFRINGEMENT. IN NO EVENT SHALL THE
+# AUTHORS OR COPYRIGHT HOLDERS BE LIABLE FOR ANY CLAIM, DAMAGES OR OTHER
+# LIABILITY, WHETHER IN AN ACTION OF CONTRACT, TORT OR OTHERWISE, ARISING FROM,
+# OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE
+# SOFTWARE.
+
+# This script is called by the .github/workflows/preflight.yml workflow to
+# run ERC and DRC checks on the design.
+kibot:
+  version: 1
+
+preflight:
+  # These are off by default so it's possible to generate output files prior to the board being
+  # completely finished (e.g. for draft review, etc.). If you want to block pull requests from
+  # passing unless ERC and DRC pass then set these to true.
+  run_erc: false
+  run_drc: false
+  check_zone_fills: true
+  ignore_unconnected: false
