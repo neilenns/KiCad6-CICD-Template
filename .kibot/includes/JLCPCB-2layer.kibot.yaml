@@ -109,6 +109,8 @@ outputs:
     layers:
       - F.Cu
       - B.Cu
+      - F.Paste
+      - B.Paste
       - F.SilkS
       - B.SilkS
       - F.Mask
