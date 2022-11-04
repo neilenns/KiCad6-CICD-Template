@@ -35,8 +35,11 @@ Notice that the folder name (which is also the GitHub repo name) and project nam
 The GitHub automation can automatically set the date and version number in the generated schematic and PCBs. Before using this make sure
 to set the timezone to your local timezone in the `.github\workflows\documentation-only.yml` and `.github\workflows\release.yml` files.
 
-Version number replacement is done on the `@version@` and `@date@` string wherever they appear in your `.sch` and `.kicad_pcb` files.
+Version number replacement is done on the `@version@` string wherever it appears in your `.kicad_sch` and `.kicad_pcb` files.
 Typically you will use them in the _Page settings_ dialog for the schematic and as text in silkscreen and/or copper layers on your board.
+
+Date replacement is done on the `@date@` string wherever it appears in your `.kicad_sch` and `.kicad_pcb` files. For dates on the printed schematic
+and PCB sheets you just need to ensure an actual date is in those fields. KiBot will automatically update them when generating the release.
 
 ## Documentation generated
 
