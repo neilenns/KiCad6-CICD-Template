@@ -46,12 +46,12 @@ outputs:
       - layer: B.Cu
       - layer: Dwgs.User
 
-  # - name: "interactive_bom"
-  #   comment: "Interactive Bill of Materials"
-  #   type: ibom
-  #   dir: "BOM"
-  #   options:
-  #     blacklist: "DNF*"
+  - name: "interactive_bom"
+    comment: "Interactive Bill of Materials"
+    type: ibom
+    dir: "BOM"
+    options:
+      blacklist: "DNF*"
 
   - name: pcb_top_g
     comment: "Renders - top (green)"

@@ -62,6 +62,7 @@ It's a good idea to use the same variable to reference the symbol and footprint 
 The following documents are generated on every release build:
 
 - Schematic - PDF
+- BOM - Interactive HTML
 - PCB front copper and explanatory drawings layers - PDF
 - PCB back copper and explanatory drawings layers - PDF
 - 3D render - STEP
