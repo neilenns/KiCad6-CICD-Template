@@ -1,0 +1,8 @@
+preflight:
+  set_text_variables:
+    - variable: "KICAD6_USER_COMPONENTS_DIR"
+      text: "${KIPRJMOD}/KiCad6-Components"
+    - variable: "VERSION"
+      command: echo $version
+    - variable: "DATE"
+      command: git log -1 --format='%as' -- $KIBOT_PCB_NAME
