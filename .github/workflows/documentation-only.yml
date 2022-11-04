@@ -45,13 +45,29 @@ jobs:
       Timezone: America/Los_Angeles
       # Set this to the output folder for all of the generated files. Unless you have a very
       # good reason to change this you should leave it as KiBotOutput.
-      OutputFolder: KiBotOutput
+      OutputFolder: "KiBotOutput"
+      KICAD6_USER_COMPONENTS_DIR: "${GITHUB_WORKSPACE}/kicad6-components"
     runs-on: ubuntu-latest
 
     # These are all the steps that generate the files.
     steps:
-      # Check out the files
-      - uses: actions/checkout@v2
+      # Check out the PCB design
+      - name: Checkout PCB design
+        uses: actions/checkout@v3
+
+      # Check out the custom component library for access to the 3D models.
+      # - name: Checkout component library
+      #   uses: actions/checkout@v3
+      #   with:
+      #     repository: neilenns/kicad6-components
+      #     path: KiCad6-Components
+
+      # Get the version from the workflow input. This is only valid
+      # when run manually as a workflow.
+      - name: Store workflow version
+        id: save_workflow_version
+        run: echo "version=${{ github.event.inputs.version }}" >> $GITHUB_ENV
+        if: startsWith(github.ref, 'refs/tags/') == false
 
       # Actually run KiBot to generate all the files. The KiBot script used is
       # in the .kibot/release.kibot.yaml folder.
@@ -65,7 +81,7 @@ jobs:
 
       # Archive all the artifacts from output and attach to the action's results.
       - name: Archive production artifacts
-        uses: actions/upload-artifact@v2
+        uses: actions/upload-artifact@v3
         with:
           name: schematic
           path: ${{ env.OutputFolder }}/**
