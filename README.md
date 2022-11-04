@@ -57,6 +57,8 @@ custom component repository folder. **This is case sensitive!**.
 4. In KiCad use `${KICAD6_USER_COMPONENTS_DIR}` to reference the path to your custom components when assigning 3D models to footprints.
 It's a good idea to use the same variable to reference the symbol and footprint library as well.
 
+An example custom component GitHub structure is available at https://github.com/neilenns/KiCad6-Components.
+
 ## Documentation generated
 
 The following documents are generated on every release build:
