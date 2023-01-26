@@ -42,6 +42,13 @@ this are in the `Revision` field of the schematic and board setup, and in silksc
 The date for the release will be inserted anywhere `${DATE}` appears in the schematic or PCB design. Typical places to use
 this are in the `Date` field of the schematic and board setup, and in silkscreen on the PCB.
 
+## JLCPCB BOM generation
+
+This repo will automatically generate the necessary files for JLCPCB's SMT assembly service. To make it work add a custom field to your parts called
+`MPN - JLCPCB` and put the LCSC part number for the component in the field. Chances are after generation at least one component will be rotated
+incorrectly. Blame JLCPCB, it sucks. To correct the rotation edit the `.kibot/includes/JLCPCB-2layer.kibot.yaml` file, modifying the `rotations`
+section as necessary.
+
 ## Using an external GitHub repo for custom components
 
 If you use a second GitHub repo to store your custom components the custom symbols and footprints will work fine with this
