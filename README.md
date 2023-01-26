@@ -44,8 +44,8 @@ this are in the `Date` field of the schematic and board setup, and in silkscreen
 
 ## JLCPCB BOM generation
 
-This repo will automatically generate the necessary files for JLCPCB's SMT assembly service. To make it work add a custom field to your parts called
-`MPN - JLCPCB` and put the LCSC part number for the component in the field. Chances are after generation at least one component will be rotated
+This repo will automatically generate the necessary files for JLCPCB's SMT assembly service. To make it work add the LCSC part number to the
+`MPN - JLCPCB` field on each symbol. Chances are after generation at least one component will be rotated
 incorrectly. Blame JLCPCB, it sucks. To correct the rotation edit the `.kibot/includes/JLCPCB-2layer.kibot.yaml` file, modifying the `rotations`
 section as necessary.
 
